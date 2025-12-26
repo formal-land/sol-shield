@@ -1,0 +1,4 @@
+(executable
+  (name test_deposit_bet)
+  (modules test_deposit_bet)
+  (libraries Extracted yojson))

@@ -37,36 +37,54 @@ End Pda.
 Module Account.
   Parameter t : IsWritable.t -> IsSigner.t -> IsOptional.t -> Address.t -> Pda.t -> Set.
 End Account.
-Export Account.
+Export (hints) Account.
 
 Module UncheckedAccount.
   Parameter t : Set.
 
-  Parameter ToAccountInfo_UncheckedAccount : ToAccountInfo UncheckedAccount.t.
-  #[export] Existing Instance ToAccountInfo_UncheckedAccount.
+  Parameter UncheckedAccount_ToAccountInfo : ToAccountInfo UncheckedAccount.t.
+  #[export] Existing Instance UncheckedAccount_ToAccountInfo.
+
+  Parameter UncheckedAccount_JEncode : JEncode UncheckedAccount.t.
+  #[export] Existing Instance UncheckedAccount_JEncode.
+
+  Parameter UncheckedAccount_JDecode : JDecode UncheckedAccount.t.
+  #[export] Existing Instance UncheckedAccount_JDecode.
 End UncheckedAccount.
-Export UncheckedAccount.
+Export (hints) UncheckedAccount.
 
 Module Signer.
   Parameter t : Set.
 
   Parameter lamports : forall (self : Signer.t), u64.
 
-  Parameter Key_Signer : Key Signer.t.
-  #[export] Existing Instance Key_Signer.
+  Parameter Signer_Key : Key Signer.t.
+  #[export] Existing Instance Signer_Key.
 
-  Parameter ToAccountInfo_Signer : ToAccountInfo Signer.t.
-  #[export] Existing Instance ToAccountInfo_Signer.
+  Parameter Signer_ToAccountInfo : ToAccountInfo Signer.t.
+  #[export] Existing Instance Signer_ToAccountInfo.
+
+  Parameter Signer_JEncode : JEncode Signer.t.
+  #[export] Existing Instance Signer_JEncode.
+
+  Parameter Signer_JDecode : JDecode Signer.t.
+  #[export] Existing Instance Signer_JDecode.
 End Signer.
-Export Signer.
+Export (hints) Signer.
 
 Module System.
   Parameter t : Set.
 
-  Parameter ToAccountInfo_System : ToAccountInfo System.t.
-  #[export] Existing Instance ToAccountInfo_System.
+  Parameter System_ToAccountInfo : ToAccountInfo System.t.
+  #[export] Existing Instance System_ToAccountInfo.
+
+  Parameter System_JEncode : JEncode System.t.
+  #[export] Existing Instance System_JEncode.
+
+  Parameter System_JDecode : JDecode System.t.
+  #[export] Existing Instance System_JDecode.
 End System.
-Export System.
+Export (hints) System.
 
 Module SystemAccount.
   Parameter t : Set.
@@ -86,7 +104,7 @@ Module Context.
   Parameter new : forall {Accounts : Set},
     AccountInfo.t -> Accounts -> Context.t Accounts.
 End Context.
-Export Context.
+Export (hints) Context.
 
 Module SystemProgram.
   Module Transfer.

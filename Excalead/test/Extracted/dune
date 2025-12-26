@@ -1,0 +1,10 @@
+(coq.extraction
+ (prelude Prelude)
+ (extracted_modules
+    Basics Datatypes Notations Nums Structs Ascii Monad Result Traversable Decode String Base BinInt BinPos game_round JSON Decimal deposit_bet Classes List player_entry Vector Printer Applicative Traits constants List0 EitherMonad Encode DecimalString BinNums)
+ (theories Excalead Ltac2 Hammer smpl JSON ExtLib Parsec Ceres))
+
+(library (name Extracted)
+ (libraries yojson))
+
+

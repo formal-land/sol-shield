@@ -34,7 +34,40 @@ Module DepositBet.
     player: Signer.t;
     system_program: System.t;
   }.
+
+
+  #[export]
+  Instance DepositBet_JEncode : JEncode DepositBet.t :=
+    fun x => JSON__Object [
+      ("game_round", encode x.(game_round));
+      ("vault", encode x.(vault));
+      ("player", encode x.(player));
+      ("system_program", encode x.(system_program))
+      ].
+
+  #[export]
+  Instance DepositBet_JDecode : JDecode DepositBet.t :=
+    fun j => match j with
+    | JSON__Object [
+      ("game_round", game_round_json);
+      ("vault", vault_json);
+      ("player", player_json);
+      ("system_program", system_program_json)
+      ] =>
+      decode game_round_json >>= fun game_round =>
+      decode vault_json >>= fun vault =>
+      decode player_json >>= fun player =>
+      decode system_program_json >>= fun system_program =>
+      inr {|
+        game_round := game_round;
+        vault := vault;
+        player := player;
+        system_program := system_program  |}
+    | _ =>
+      inl "Failed to decode DepositBet"
+    end.
 End DepositBet.
+Export (hints) DepositBet.
 
 Definition deposit_bet
     (ctx : Context.t DepositBet.t)
@@ -159,3 +192,19 @@ Proof.
     lia.
   }
 Qed.
+
+(** This funcction takes input that nomally goes into deposit_bet, but in json
+  representation, then decodes it, feeds it to deposit_bet, encodes output as
+  json and returns it. *)
+Definition test_deposit_bet (ctx_input amount_input : json) : Result.t json :=
+  match
+    decode ctx_input >>= fun ctx_accounts =>
+    decode amount_input >>= fun amount =>
+    ret (
+      let ctx := Context.Build_t _ ctx_accounts in
+      let? output := deposit_bet ctx amount in
+      Result.Ok (encode output))
+  with
+  | inr res => res
+  | inl s => Result.Err s
+  end.
