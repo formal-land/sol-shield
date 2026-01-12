@@ -1,0 +1,12 @@
+(coq.extraction
+ (prelude Prelude)
+ (extracted_modules
+  Datatypes Notations Nums Structs Ascii Result String Base BinInt BinPos game_round deposit_bet Classes List player_entry Vector Traits constants BinNums)
+
+    ; Excalead Anchor_lang
+    ; deposit_bet game_config game_round mod player_entry constants errors)
+ (theories Excalead Ltac2 Hammer smpl JSON ExtLib Parsec Ceres))
+
+(library (name Domin8))
+
+

@@ -83,8 +83,11 @@ Module Context.
   }.
   Arguments t : clear implicits.
 
-  Parameter new : forall {Accounts : Set},
-    AccountInfo.t -> Accounts -> Context.t Accounts.
+  Definition new {Accounts : Set} (_ : AccountInfo.t) (accounts : Accounts) :
+      Context.t Accounts :=
+    Build_t _ accounts.
+  (* Parameter new : forall {Accounts : Set}, *)
+  (*   AccountInfo.t -> Accounts -> Context.t Accounts. *)
 End Context.
 Export Context.
 

@@ -1,0 +1,3 @@
+(executable
+  (name deposit_bet_test)
+  (libraries Domin8 yojson))
